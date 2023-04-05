@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'Providers/CategoryProvider.dart';
+import 'Providers/LocationProvider.dart';
+import 'Providers/LocationProvider1.dart';
+import 'Providers/ProductsProvider.dart';
 import 'Providers/SplashProvider.dart';
 import 'Views/SplashScreen.dart';
 
@@ -11,6 +14,8 @@ void main() {
       providers: [
         ChangeNotifierProvider(create: (_) => SplashScreenProvider()),
         ChangeNotifierProvider(create: (_) => CategoryProvider()),
+        ChangeNotifierProvider(create: (_) => ProductsProvider()),
+        ChangeNotifierProvider(create: (_) => LocationProvider()),
       ],
       child: MyApp(),
     ),
