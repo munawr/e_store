@@ -1,18 +1,73 @@
-import 'package:flutter/animation.dart';
+import 'package:e_store/Views/ProductsScreen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+import '../Providers/CategoryProvider.dart';
 
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
+class HomeScreen extends StatelessWidget {
+  final Color appBarColor = Colors.teal;
 
-class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    return Container(color: Colors.black,);
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: appBarColor,
+    ));
+
+    return SafeArea(
+      child: Scaffold(
+        body: CustomScrollView(
+          slivers: [
+            SliverAppBar(
+              backgroundColor: appBarColor,
+              pinned: true,
+              expandedHeight: 200,
+              flexibleSpace: FlexibleSpaceBar(
+              title: Text('Choose from these Items'),
+              background: Image.asset(
+                'assets/appbar.webp',
+                fit: BoxFit.cover,
+              ),
+            ),
+            ),
+            ChangeNotifierProvider<CategoryProvider>(
+              create: (_) => CategoryProvider()..fetchCategories(),
+              child: Consumer<CategoryProvider>(
+                builder: (context, provider, child) {
+                  if (provider.isLoading) {
+                    return SliverFillRemaining(
+                      child: Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                    );
+                  } else {
+                    return SliverList(
+                      delegate: SliverChildBuilderDelegate(
+                        (context, index) => ListTile(
+                          title: InkWell(
+                            onTap: () => ProductsScreen(),
+                            child: SizedBox(
+                              height: 50,
+                              width: 100,
+                              child: Center(
+                                child: Text(
+                                  provider.categories[index].toString(),
+                                  style: TextStyle(fontSize: 20),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        childCount: provider.categories.length,
+                      ),
+                    );
+                  }
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
