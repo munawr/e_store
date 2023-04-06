@@ -1,3 +1,4 @@
+
 class CurrentLoc {
   Location? location;
   Current? current;
@@ -22,6 +23,9 @@ class CurrentLoc {
     }
     return data;
   }
+
+  @override
+  String toString() => 'CurrentLoc(location: $location, current: $current)';
 }
 
 class Location {
@@ -66,6 +70,11 @@ class Location {
     data['localtime_epoch'] = this.localtimeEpoch;
     data['localtime'] = this.localtime;
     return data;
+  }
+
+  @override
+  String toString() {
+    return 'Location(name: $name, region: $region, country: $country, lat: $lat, lon: $lon, tzId: $tzId, localtimeEpoch: $localtimeEpoch, localtime: $localtime)';
   }
 }
 

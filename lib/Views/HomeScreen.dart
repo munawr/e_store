@@ -1,13 +1,9 @@
-import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:e_store/Providers/LocationProvider.dart';
 import 'package:e_store/Views/ProductsScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
-import '../Models.dart/CurrentLocModel.dart';
 import '../Providers/CategoryProvider.dart';
-import '../Providers/LocationProvider1.dart';
 
 class HomeScreen extends StatelessWidget {
   final Color appBarColor = Colors.teal;
@@ -29,7 +25,7 @@ class HomeScreen extends StatelessWidget {
               pinned: true,
               expandedHeight: 200,
               flexibleSpace: FlexibleSpaceBar(
-                title: const Text('Choose from these Items'),
+                title: const Text('Select from these Items'),
                 background: Stack(
                   fit: StackFit.loose,
                   children: [
@@ -45,30 +41,34 @@ class HomeScreen extends StatelessWidget {
                           builder: (context, value, child) {
                             if (value.currentLoc == null) {
                               return Row(
-                                children: [
-                                  const Padding(
+                                children: const [
+                                  Padding(
                                     padding: EdgeInsets.all(8.0),
                                     child: Text('Fetching Location'),
                                   ),
-                                  const Padding(
+                                  Padding(
                                     padding: EdgeInsets.all(15),
                                     child: CircularProgressIndicator(),
                                   ),
                                 ],
                               );
-                            }
-                            return Column(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                Text(
-                                  '${value.currentLoc!.location}',
-                                  style: const TextStyle(
-                                    fontSize: 32.0,
-                                    fontWeight: FontWeight.bold,
+                            } else {
+                              return Column(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 15, left: 15),
+                                    child: Text(
+                                      '${value.currentLoc?.location?.name}, ${value.currentLoc?.location?.region}',
+                                      style: const TextStyle(
+                                        fontSize: 25.0,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
                                   ),
-                                ),
-                              ],
-                            );
+                                ],
+                              );
+                            }
                           },
                         )),
                   ],

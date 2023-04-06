@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 
 import 'Providers/CategoryProvider.dart';
 import 'Providers/LocationProvider.dart';
-import 'Providers/LocationProvider1.dart';
 import 'Providers/ProductsProvider.dart';
 import 'Providers/SplashProvider.dart';
 import 'Views/SplashScreen.dart';

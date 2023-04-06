@@ -8,7 +8,7 @@ import 'HomeScreen.dart';
 class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    Future.delayed(Duration(seconds: 6)).then((_) {
+    Future.delayed(Duration(seconds: 4)).then((_) {
       Provider.of<SplashScreenProvider>(context, listen: false).setLoading =
           false;
     });
